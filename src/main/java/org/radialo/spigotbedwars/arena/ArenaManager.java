@@ -20,6 +20,7 @@ public class ArenaManager {
         for (String str : config.getConfigurationSection("arenas.").getKeys(false)) {
             arenas.add(
                     new Arena(
+                            plugin,
                             Integer.parseInt(str),
                             new Location(
                                     Bukkit.getWorld("arenas." + str + ".world"),
