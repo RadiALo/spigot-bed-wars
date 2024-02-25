@@ -1,12 +1,12 @@
-org\radialo\spigotbedwars\listener\ConnectListener.class
+org\radialo\spigotbedwars\game\bedwars\BedWarsGame.class
 org\radialo\spigotbedwars\arena\ArenaManager.class
 org\radialo\spigotbedwars\game\Arena$ArenaState.class
 org\radialo\spigotbedwars\BedWarsPlugin.class
 org\radialo\spigotbedwars\config\ConfigManager.class
 org\radialo\spigotbedwars\arena\ArenaCommand.class
 org\radialo\spigotbedwars\game\Arena.class
+org\radialo\spigotbedwars\game\ConnectListener.class
 org\radialo\spigotbedwars\game\Game.class
 org\radialo\spigotbedwars\game\blockbreak\BreakBlocksGame.class
-org\radialo\spigotbedwars\bedwars\BedWarsGame.class
 org\radialo\spigotbedwars\game\Countdown.class
 org\radialo\spigotbedwars\game\blockbreak\BreakBlocksListener.class

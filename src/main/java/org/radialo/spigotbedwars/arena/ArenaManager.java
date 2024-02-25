@@ -2,6 +2,7 @@ package org.radialo.spigotbedwars.arena;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
@@ -20,20 +21,21 @@ public class ArenaManager {
         FileConfiguration config = plugin.getConfig();
 
         System.out.println(config);
-
         for (String str : config.getConfigurationSection("arenas").getKeys(false)) {
+            ConfigurationSection section = config.getConfigurationSection("arenas." + str);
+
             arenas.add(
                     new Arena(
                             plugin,
-                            new BreakBlocksGame(),
+                            new BreakBlocksGame(section),
                             Integer.parseInt(str),
                             new Location(
-                                    Bukkit.getWorld(config.getString("arenas." + str + ".world")),
-                                    config.getDouble("arenas." + str + ".x"),
-                                    config.getDouble("arenas." + str + ".y"),
-                                    config.getDouble("arenas." + str + ".z"),
-                                    (float) config.getDouble("arenas." + str + ".yaw"),
-                                    (float) config.getDouble("arenas." + str + ".pitch")
+                                    Bukkit.getWorld(section.getString("spawn.world")),
+                                    section.getDouble("spawn.x"),
+                                    section.getDouble("spawn.y"),
+                                    section.getDouble("spawn.z"),
+                                    (float) section.getDouble("spawn.yaw"),
+                                    (float) section.getDouble("spawn.pitch")
                             )
                     )
             );

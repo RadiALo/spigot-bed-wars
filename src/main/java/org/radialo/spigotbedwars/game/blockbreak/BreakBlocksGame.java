@@ -1,6 +1,7 @@
 package org.radialo.spigotbedwars.game.blockbreak;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.game.Game;
 
@@ -10,6 +11,10 @@ import java.util.UUID;
 
 public class BreakBlocksGame extends Game {
     private Map<UUID, Integer> points = new HashMap<>();
+
+    public BreakBlocksGame(ConfigurationSection config) {
+        super(config);
+    }
 
     @Override
     public void start() {

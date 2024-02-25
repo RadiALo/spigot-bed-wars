@@ -1,6 +1,7 @@
 package org.radialo.spigotbedwars.game;
 
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
@@ -9,6 +10,10 @@ import java.util.Map;
 import java.util.UUID;
 
 public abstract class Game {
+    public Game(ConfigurationSection config) {
+
+    }
+
     protected Arena arena;
 
     public abstract void start();

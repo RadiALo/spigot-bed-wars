@@ -9,16 +9,44 @@ lobby-spawn:
   pitch: 0
 arenas:
   0:
-    world: 'world'
-    x: -208.5
-    y: 72
-    z: 114.5
-    yaw: -90
-    pitch: 0
+    spawn:
+      world: 'world'
+      x: -208.5
+      y: 72
+      z: 114.5
+      yaw: -90
+      pitch: 0
   1:
+    spawn:
+      world: 'world'
+      x: -207.5
+      y: 72
+      z: 123.5
+      yaw: -90
+      pitch: 0
     world: 'world'
-    x: -207.5
-    y: 72
-    z: 123.5
-    yaw: -90
-    pitch: 0
+    teams:
+      red:
+        x: -207.5
+        y: 72
+        z: 123.5
+        yaw: -90
+        pitch: 0
+      blue:
+        x: -207.5
+        y: 72
+        z: 123.5
+        yaw: -90
+        pitch: 0
+      green:
+        x: -207.5
+        y: 72
+        z: 123.5
+        yaw: -90
+        pitch: 0
+      yellow:
+        x: -207.5
+        y: 72
+        z: 123.5
+        yaw: -90
+        pitch: 0
