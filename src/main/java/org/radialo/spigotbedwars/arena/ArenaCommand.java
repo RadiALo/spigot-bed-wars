@@ -6,7 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
-import org.radialo.spigotbedwars.GameState;
+import org.radialo.spigotbedwars.game.Arena;
 
 public class ArenaCommand implements CommandExecutor {
     private final BedWarsPlugin plugin;
@@ -25,7 +25,7 @@ public class ArenaCommand implements CommandExecutor {
 
                 for (Arena arena : plugin.getArenaManager().getArenas()) {
                     player.sendMessage(
-                            ChatColor.GREEN + "-" + arena.getId() + "(" + arena.getGameState() + ")"
+                            ChatColor.GREEN + "-" + arena.getId() + "(" + arena.getState() + ")"
                     );
                 }
             } else if (args.length == 1 && args[0].equalsIgnoreCase("leave")) {
@@ -47,7 +47,7 @@ public class ArenaCommand implements CommandExecutor {
                     if (arena == null) {
                         player.sendMessage(ChatColor.RED + "There is no arena with provided id");
                     }
-                    else if (arena.getGameState().equals(GameState.LIVE)) {
+                    else if (arena.getState().equals(Arena.ArenaState.LIVE)) {
                         player.sendMessage(ChatColor.RED + "The arena already in game!");
                     } else {
                         player.sendMessage(ChatColor.GREEN + "You are now playing in an arena" + arena.getId() + "!");

@@ -5,6 +5,8 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
+import org.radialo.spigotbedwars.game.Arena;
+import org.radialo.spigotbedwars.game.blockbreak.BreakBlocksGame;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class ArenaManager {
             arenas.add(
                     new Arena(
                             plugin,
+                            new BreakBlocksGame(),
                             Integer.parseInt(str),
                             new Location(
                                     Bukkit.getWorld(config.getString("arenas." + str + ".world")),

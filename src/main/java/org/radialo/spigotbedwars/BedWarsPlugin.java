@@ -5,8 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.radialo.spigotbedwars.arena.ArenaCommand;
 import org.radialo.spigotbedwars.arena.ArenaManager;
 import org.radialo.spigotbedwars.config.ConfigManager;
-import org.radialo.spigotbedwars.listener.ConnectListener;
-import org.radialo.spigotbedwars.listener.GameListener;
+import org.radialo.spigotbedwars.game.ConnectListener;
+import org.radialo.spigotbedwars.game.blockbreak.BreakBlocksListener;
 
 public final class BedWarsPlugin extends JavaPlugin {
     private ArenaManager arenaManager;
@@ -17,7 +17,7 @@ public final class BedWarsPlugin extends JavaPlugin {
         ConfigManager.setupConfig(this);
         arenaManager = new ArenaManager(this);
         Bukkit.getPluginManager().registerEvents(new ConnectListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new GameListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new BreakBlocksListener(this), this);
         getCommand("arena").setExecutor(new ArenaCommand(this));
     }
 

@@ -1,11 +1,11 @@
-package org.radialo.spigotbedwars.listener;
+package org.radialo.spigotbedwars.game;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.radialo.spigotbedwars.BedWarsPlugin;
-import org.radialo.spigotbedwars.arena.Arena;
+import org.radialo.spigotbedwars.game.Arena;
 import org.radialo.spigotbedwars.config.ConfigManager;
 
 public class ConnectListener implements Listener {

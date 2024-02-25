@@ -1,29 +1,26 @@
-package org.radialo.spigotbedwars.arena;
+package org.radialo.spigotbedwars.game.blockbreak;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.radialo.spigotbedwars.GameState;
+import org.radialo.spigotbedwars.game.Game;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class Game {
-    private final Arena arena;
-    private final Map<UUID, Integer> points = new HashMap<>();
+public class BreakBlocksGame extends Game {
+    private Map<UUID, Integer> points = new HashMap<>();
 
-
-    public Game(Arena arena) {
-        this.arena = arena;
-    }
-
+    @Override
     public void start() {
-        arena.setGameState(GameState.LIVE);
-        arena.sendMessage(ChatColor.GREEN + "GAME HAS STARTED!");
-
         for (UUID uuid : arena.getPlayers()) {
             points.put(uuid, 0);
         }
+    }
+
+    @Override
+    public void reset() {
+        points.clear();
     }
 
     public void addPoint(Player player) {
@@ -31,8 +28,7 @@ public class Game {
         playerPoints++;
 
         if (playerPoints == 20) {
-            arena.sendMessage(ChatColor.GREEN + player.getName() + " win the game!");
-            arena.reset(true);
+            endGame(player);
         } else {
             player.sendMessage(ChatColor.GREEN + "+1 point!");
             points.replace(player.getUniqueId(), playerPoints);

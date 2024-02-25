@@ -1,13 +1,13 @@
-package org.radialo.spigotbedwars.arena;
+package org.radialo.spigotbedwars.game;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
-import org.radialo.spigotbedwars.GameState;
 import org.radialo.spigotbedwars.config.ConfigManager;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,24 +16,28 @@ public class Arena {
     private final int id;
     private final Location spawn;
     private final BedWarsPlugin plugin;
-    private Game game;
-
-
+    private final Game game;
     private final List<UUID> players = new ArrayList<>();
-    private GameState gameState;
+    private ArenaState state;
     private Countdown countdown;
 
-    public Arena(BedWarsPlugin plugin, int id, Location spawn) {
-        this.plugin = plugin;
+    public Arena(BedWarsPlugin plugin, Game game, int id, Location spawn) {
         this.id = id;
+        this.plugin = plugin;
         this.spawn = spawn;
+        this.game = game;
+        game.setArena(this);
         reset(false);
     }
 
+    /* Starting game */
     public void start() {
         game.start();
+        setState(Arena.ArenaState.LIVE);
+        sendMessage(ChatColor.GREEN + "GAME HAS STARTED!");
     }
 
+    /* Resetting game */
     public void reset(boolean kickPlayer) {
         if (kickPlayer) {
             if (players != null) {
@@ -49,45 +53,56 @@ public class Arena {
             countdown.cancel();
         }
 
-        gameState = GameState.RECRUTING;
+        state = ArenaState.RECRUITING;
         countdown = new Countdown(plugin, this);
-        this.game = new Game(this);
+        game.reset();
     }
 
+    /* Ending game */
+    public void endGame(Player player) {
+        sendMessage(ChatColor.GREEN + player.getName() + " win the game!");
+        reset(true);
+    }
+
+    /* Adding player to arena */
     public void addPlayer(Player player) {
         players.add(player.getUniqueId());
         player.teleport(spawn);
 
-        if (gameState.equals(GameState.RECRUTING)
+        if (state.equals(ArenaState.RECRUITING)
                 && players.size() >= ConfigManager.getRequiredPlayers()) {
+            state = ArenaState.COUNTDOWN;
             countdown.start();
         }
     }
 
+    /* Removing player from to arena */
     public void removePlayer(Player player) {
         players.remove(player.getUniqueId());
         player.teleport(ConfigManager.getLobbySpawn());
         player.sendTitle("You left arena " + id, "Bye");
 
-        if (gameState.equals(GameState.COUNTDOWN)
+        if (state.equals(ArenaState.COUNTDOWN)
                 && players.size() < ConfigManager.getRequiredPlayers()) {
             sendMessage(ChatColor.RED + "There is not enough players. Countdown stopped.");
             reset(false);
         }
 
-        if (gameState.equals(GameState.LIVE)
+        if (state.equals(ArenaState.LIVE)
                 && players.size() < ConfigManager.getRequiredPlayers()) {
             sendMessage(ChatColor.RED + "The game has ended as too many players have left.");
             reset(false);
         }
     }
 
+    /* Sending message to every arena player */
     public void sendMessage(String message) {
         for (UUID uuid : players) {
             Bukkit.getPlayer(uuid).sendMessage(message);
         }
     }
 
+    /* Sending title to every arena player */
     public void sendTitle(String title, String subtitle) {
         for (UUID uuid : players) {
             Bukkit.getPlayer(uuid).sendTitle(title, subtitle);
@@ -102,12 +117,12 @@ public class Arena {
         return game;
     }
 
-    public GameState getGameState() {
-        return gameState;
+    public ArenaState getState() {
+        return state;
     }
 
-    public void setGameState(GameState gameState) {
-        this.gameState = gameState;
+    public void setState(ArenaState state) {
+        this.state = state;
     }
 
     public int getId() {
@@ -116,5 +131,11 @@ public class Arena {
 
     public Location getSpawn() {
         return spawn;
+    }
+
+    public enum ArenaState {
+        RECRUITING,
+        COUNTDOWN,
+        LIVE;
     }
 }
