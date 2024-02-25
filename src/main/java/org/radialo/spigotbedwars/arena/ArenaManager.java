@@ -17,13 +17,15 @@ public class ArenaManager {
 
         FileConfiguration config = plugin.getConfig();
 
-        for (String str : config.getConfigurationSection("arenas.").getKeys(false)) {
+        System.out.println(config);
+
+        for (String str : config.getConfigurationSection("arenas").getKeys(false)) {
             arenas.add(
                     new Arena(
                             plugin,
                             Integer.parseInt(str),
                             new Location(
-                                    Bukkit.getWorld("arenas." + str + ".world"),
+                                    Bukkit.getWorld(config.getString("arenas." + str + ".world")),
                                     config.getDouble("arenas." + str + ".x"),
                                     config.getDouble("arenas." + str + ".y"),
                                     config.getDouble("arenas." + str + ".z"),
@@ -41,7 +43,7 @@ public class ArenaManager {
 
     public Arena getArena(Player player) {
         for (Arena arena : arenas) {
-            if (arena.getPlayers().contains(player)) {
+            if (arena.getPlayers().contains(player.getUniqueId())) {
                 return arena;
             }
         }

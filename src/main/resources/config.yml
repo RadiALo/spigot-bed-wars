@@ -12,7 +12,7 @@ arenas:
     world: 'world'
     x: -208.5
     y: 72
-    z: -114.5
+    z: 114.5
     yaw: -90
     pitch: 0
   1:

@@ -1,0 +1,10 @@
+org\radialo\spigotbedwars\arena\Game.class
+org\radialo\spigotbedwars\listener\GameListener.class
+org\radialo\spigotbedwars\listener\ConnectListener.class
+org\radialo\spigotbedwars\arena\ArenaManager.class
+org\radialo\spigotbedwars\GameState.class
+org\radialo\spigotbedwars\arena\Countdown.class
+org\radialo\spigotbedwars\BedWarsPlugin.class
+org\radialo\spigotbedwars\config\ConfigManager.class
+org\radialo\spigotbedwars\arena\Arena.class
+org\radialo\spigotbedwars\arena\ArenaCommand.class

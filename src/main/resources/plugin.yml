@@ -6,3 +6,4 @@ authors: [RadiALo]
 description: My BedWars plugin!
 commands:
   arena:
+    description: Arena command!

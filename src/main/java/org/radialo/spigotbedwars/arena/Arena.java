@@ -19,7 +19,7 @@ public class Arena {
     private Game game;
 
 
-    private List<UUID> players;
+    private final List<UUID> players = new ArrayList<>();
     private GameState gameState;
     private Countdown countdown;
 
@@ -42,7 +42,7 @@ public class Arena {
                 }
             }
 
-            players = new ArrayList<>();
+            players.clear();
         }
 
         if (countdown != null) {
@@ -59,7 +59,7 @@ public class Arena {
         player.teleport(spawn);
 
         if (gameState.equals(GameState.RECRUTING)
-                && players.size()>= ConfigManager.getRequiredPlayers()) {
+                && players.size() >= ConfigManager.getRequiredPlayers()) {
             countdown.start();
         }
     }
