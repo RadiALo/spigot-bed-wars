@@ -70,7 +70,7 @@ public class Arena {
         player.teleport(spawn);
 
         if (state.equals(ArenaState.RECRUITING)
-                && players.size() >= ConfigManager.getRequiredPlayers()) {
+                && players.size() >= ConfigManager.getMinPlayers()) {
             state = ArenaState.COUNTDOWN;
             countdown.start();
         }
@@ -83,14 +83,8 @@ public class Arena {
         player.sendTitle("You left arena " + id, "Bye");
 
         if (state.equals(ArenaState.COUNTDOWN)
-                && players.size() < ConfigManager.getRequiredPlayers()) {
+                && players.size() < ConfigManager.getMinPlayers()) {
             sendMessage(ChatColor.RED + "There is not enough players. Countdown stopped.");
-            reset(false);
-        }
-
-        if (state.equals(ArenaState.LIVE)
-                && players.size() < ConfigManager.getRequiredPlayers()) {
-            sendMessage(ChatColor.RED + "The game has ended as too many players have left.");
             reset(false);
         }
     }

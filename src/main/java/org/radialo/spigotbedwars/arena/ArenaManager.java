@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
 import org.radialo.spigotbedwars.game.Arena;
+import org.radialo.spigotbedwars.game.bedwars.BedWarsGame;
 import org.radialo.spigotbedwars.game.blockbreak.BreakBlocksGame;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class ArenaManager {
             arenas.add(
                     new Arena(
                             plugin,
-                            new BreakBlocksGame(section),
+                            new BedWarsGame(section),
                             Integer.parseInt(str),
                             new Location(
                                     Bukkit.getWorld(section.getString("spawn.world")),
