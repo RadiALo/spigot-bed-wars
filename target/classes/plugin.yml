@@ -1,5 +1,5 @@
 name: spigot-bed-wars
-version: '${project.version}'
+version: '1.0-SNAPSHOT'
 main: org.radialo.spigotbedwars.BedWarsPlugin
 api-version: '1.20'
 authors: [RadiALo]
