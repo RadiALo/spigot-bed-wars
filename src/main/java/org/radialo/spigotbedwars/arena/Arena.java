@@ -1,6 +1,7 @@
 package org.radialo.spigotbedwars.arena;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.radialo.spigotbedwars.BedWarsPlugin;
@@ -66,6 +67,19 @@ public class Arena {
     public void removePlayer(Player player) {
         players.remove(player.getUniqueId());
         player.teleport(ConfigManager.getLobbySpawn());
+        player.sendTitle("You left arena " + id, "Bye");
+
+        if (gameState.equals(GameState.COUNTDOWN)
+                && players.size() < ConfigManager.getRequiredPlayers()) {
+            sendMessage(ChatColor.RED + "There is not enough players. Countdown stopped.");
+            reset(false);
+        }
+
+        if (gameState.equals(GameState.LIVE)
+                && players.size() < ConfigManager.getRequiredPlayers()) {
+            sendMessage(ChatColor.RED + "The game has ended as too many players have left.");
+            reset(false);
+        }
     }
 
     public void sendMessage(String message) {
@@ -82,6 +96,10 @@ public class Arena {
 
     public List<UUID> getPlayers() {
         return players;
+    }
+
+    public Game getGame() {
+        return game;
     }
 
     public GameState getGameState() {
